@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<!-- Built by banner-watch from ../master.html. Edits here get overwritten: edit master.html instead. -->
+<html lang="en">
+<head>
+
+	<title>BlazePizza-NoRegerts | 728x90</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="ad.size" content="width=728,height=90">
+	<meta name="viewport" content="width=728, height=90">
+
+	<script src="https://s0.2mdn.net/ads/studio/cached_libs/gsap_3.11.1_min.js"></script>
+	<script src="burn-transition.js"></script>
+	
+	<style>
+		body, body * { position: absolute; vertical-align: baseline; border: 0; outline: 0; padding: 0; margin: 0; }
+		#container_dc { width:728px; height:90px; margin: auto; }
+		#content_dc { overflow: hidden; width: 100%;height: 100%; background-color: #372f2d; }
+		#cover { width: 100%; height: 100%; z-index:1000; background-color: #372f2d; }
+		.border{ width:100%; height:100%; border:1px solid #000; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; z-index: 1001; }
+		#background_exit_dc { width: 100%; height: 100%; cursor: pointer; opacity: 0.1; z-index: 1002; }
+		:focus {outline:none;}
+		::-moz-focus-inner {border:0;}
+		.holder{ opacity:1; width:728px; height:90px; overflow: hidden; top:0; left: 0; backface-visibility: hidden; will-change: transform, opacity }
+		#bg-orange{background-color: #d25a1c;}
+		#bg-brown{background-color: #372f2d;}
+	</style>
+	
+	<script>
+		var clickTag = "https://order.thanx.com/blazepizza";
+
+		window.onload = function()
+		{	
+			bgExit = document.getElementById('background_exit_dc');
+			bgExit.addEventListener('click', bgExitHandler, false);
+
+			const tmln = gsap.timeline();
+
+			const w = 728;
+			const h = 90;
+			const rt = 1.25;
+			let d = 0;
+
+			function split(id, cuts, d) {
+				const i = document.getElementById(id), h = document.createElement('div');
+				h.id = id + "_holder"; h.className = 'holder';
+				let o = 0, p = 0;
+				cuts.forEach((cut, n) => {
+					const div = document.createElement('div'), c = i.cloneNode();
+					cut -= p;
+					div.className = "holder"; div.id = id + "_" + n;
+					div.style[d ? 'width' : 'height'] = cut + 'px';
+					div.style[d ? 'left' : 'top'] = o + 'px';
+					c.style[d ? 'left' : 'top'] = -o + 'px';
+					div.appendChild(c); h.appendChild(div);
+					o += cut; p = cuts[n];
+				});
+				i.parentElement.replaceChild(h, i);
+			}
+				split('h1', [568/2,w],1);
+				split('h2', [45,h]);
+
+			const burn = BurnTransition.setup({
+				from: '#frame1',
+				angle: -25,           // travel direction in degrees (180 = straight left, 195 = left and a bit up)
+				speed: 575,           // wipe speed, px per second (or use duration: 1.6)
+				flameSpeed: 110,      // how fast the flame licks stream, px per second
+				size: 1.8,            // overall scale of the effect
+				noiseScaleX: 1,       // width of the flame licks
+				noiseScaleY: 2.5,     // length of the flame licks
+				flow: 'travel',       // noise follows the burn direction
+				sparkRate: 190         // sparks per second
+			});
+
+			function shake(targets, { strength = 8, duration = 0.2, shakes = 6 } = {}) {
+				const tl = gsap.timeline();
+				for (let i = 0; i < shakes; i++) {
+					const s = strength * (1 - i / shakes);   // fades out
+					tl.to(targets, {
+					x: () => gsap.utils.random(-s, s) * 0.5,  // less sideways
+					y: () => gsap.utils.random(-s, s),        // more vertical for a slam
+					duration: duration / shakes,
+					ease: 'sine.inOut'
+					});
+				}
+				return tl.to(targets, { x: 0, y: 0, duration: duration / shakes });
+			}
+
+			// Automatically set transform/willChange for optimized rendering
+			gsap.set([
+				"#logo",
+				"#noregerts",
+				"#pizza",
+				"#price"
+			], { willChange: "auto", clearProps: "transform", backfaceVisibility: "visible" });
+
+			// gsap.set('#h1_0',{autoAlpha:1, scale:0.75, y:0, transformOrigin:'100% 50%'})
+			// gsap.set('#cta',{autoAlpha:0, scale:0.75, y:0, transformOrigin:'75% 50%'})
+
+			// gsap.set('#h2_0, #h2_1',{autoAlpha:0, scale:1.50, y:0, transformOrigin:'25% 50%'})
+			gsap.set('#noregerts',{scale:.6})
+			gsap.set('#h2_0, #h2_1',{x:50, autoAlpha:0})
+			gsap.set('#price',{autoAlpha:0, scale:2, y:0, transformOrigin:'50% 50%'})
+			gsap.set('#h1_0, #h1_1, #pizza',{x:50, autoAlpha:0})
+			gsap.set('#cta',{x:30, autoAlpha:0})
+
+
+			gsap.set('#cover',{autoAlpha:0})
+
+				tmln.to('#noregerts',{scale:1, ease:'back.out', duration:0.15},d += 0.2)
+					.add(burn.start(), d+=1)
+					.to('#pizza',{x:0, autoAlpha:1, ease:'expo.out', duration: 0.6}, d += 0.6)
+					.to('#h1_0',{x:0, autoAlpha:1, ease:'expo.out', duration: 0.6}, d += 0.35)
+					.to('#h1_1',{x:0, autoAlpha:1, ease:'expo.out', duration: 0.6}, d += 0.25)
+
+					.to('#h1_0',{x:-30, autoAlpha:0, ease:'power3.in', duration: 0.3}, d += rt)
+					.to('#h1_1',{x:-30, autoAlpha:0, ease:'power3.in', duration: 0.3}, d += 0.05)
+
+					.to('#h2_0',{x:0, autoAlpha:1, ease:'back.out', duration: 0.3}, d += 0.25)
+					.to('#h2_1',{x:0, autoAlpha:1, ease:'back.out', duration: 0.3}, d += 0.2)
+					// .to('#h2_0',{autoAlpha:1, scale:1, ease:'back.out(1.5)', duration: 0.15}, d += 0.5)
+					// .to('#h2_1',{autoAlpha:1, scale:1, ease:'back.out(1.5)', duration: 0.15}, d += 0.2)
+					.to('#price',{autoAlpha:1, scale:1, ease:'back.out(1.5)', duration: 0.15}, d += 0.5)
+					.add(shake('#pizza, #h2_0, #h2_1'),d += 0.10)
+					.to('#cta',{x:0, autoAlpha:1, ease:'back.out', duration: 0.3}, d += 0.5)
+					// .to('#cta',{autoAlpha:1, scale:1, y:0, ease:'back.out(1)', duration: 0.2}, d += 0.8)
+					.to('#cta',{autoAlpha:1, scale:1.25, y:0, ease:'back.in(1)', duration: 0.3, yoyo:true, repeat:1, transformOrigin:'70% 50%'}, d += 1.5)
+					// .to('#h1_1',{autoAlpha:1, scale:1.25, y:0, ease:'back.in(1)', duration: 0.2, yoyo:true, repeat:1, transformOrigin:'25% 50%'}, d += 0.2)
+			}
+		</script>
+
+</head>
+
+<body>
+
+	<div id="container_dc">
+		<div id="content_dc">
+		
+		<div class="holder" id="frame2">
+			<div class="holder" id="bg-orange"></div>
+			<img id='h1' src='h1.png' width='728' height='90'/>
+			<div class='holder' id='price'><img src='price.png' width='728' height='90'/></div>
+			<div class='holder' id='pizza' style="left:-30px"><img src='pizza.png' width='728' height='150' style="top:-30px;"/></div>
+			<img id='h2' src='h2.png' width='728' height='90'/>
+			<div class='holder' id='cta'><img src='cta.png' width='728' height='90'/></div>
+		</div>
+		
+		<div class="holder" id="frame1">
+			<div class="holder" id="bg-brown"></div>
+			<img id="noregerts" src='noregerts.png' width='728' height='150' style="top:-30px"/>
+		</div>
+		
+		<div class='holder' id='logo'><img src='logo.png' width='728' height='90' /></div>
+			
+		</div>
+		<div id="cover"></div>
+		<div class="border"></div>
+		<div id="background_exit_dc" role="button" aria-label=""></div>
+	</div>
+
+	<script>
+		function bgExitHandler(e) {
+			window.open(window.clickTag,'_blank');
+		}	
+	</script>
+
+</body>
+</html>
