@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<!-- Built by banner-watch from ../master.html. Edits here get overwritten: edit master.html instead. -->
+<html lang="en">
+<head>
+
+	<title>Blaze Pizza - More is a Look | 300x600</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="ad.size" content="width=300,height=600">
+	<meta name="viewport" content="width=300, height=600">
+
+	<script src="https://s0.2mdn.net/ads/studio/cached_libs/gsap_3.11.1_min.js"></script>
+	<script src="sparkle.js"></script>
+	
+	<style>
+		body, body * { position: absolute; vertical-align: baseline; border: 0; outline: 0; padding: 0; margin: 0; }
+		#container_dc { width:300px; height:600px; margin: auto; }
+		#content_dc { overflow: hidden; width: 100%;height: 100%; background-color: #d25a1c; }
+		#cover { width: 100%; height: 100%; z-index:1000; background-color: #d25a1c; }
+		.border{ width:100%; height:100%; border:1px solid #000; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; z-index: 1001; }
+		#background_exit_dc { width: 100%; height: 100%; cursor: pointer; opacity: 0.1; z-index: 1002; }
+		:focus {outline:none;}
+		::-moz-focus-inner {border:0;}
+		.holder{ opacity:1; width:300px; height:600px; overflow: hidden; top:0; left: 0; backface-visibility: hidden; will-change: transform, opacity }
+
+		#pizza{filter:drop-shadow(-8px 12px 7px rgba(55, 20, 0, 0.75));}
+	</style>
+	
+	<script>
+		var clickTag = "https://order.thanx.com/blazepizza";
+
+		window.onload = function()
+		{	
+			bgExit = document.getElementById('background_exit_dc');
+			bgExit.addEventListener('click', bgExitHandler, false);
+
+			const tmln = gsap.timeline();
+
+			const w = 300;
+			const h = 600;
+			const rt = 1.75;
+			let d = 0;
+
+			
+			function split(id, cuts, d) {
+				const i = document.getElementById(id), h = document.createElement('div');
+				h.id = id + "_holder"; h.className = 'holder';
+				let o = 0, p = 0;
+				cuts.forEach((cut, n) => {
+					const div = document.createElement('div'), c = i.cloneNode();
+					cut -= p;
+					div.className = "holder"; div.id = id + "_" + n;
+					div.style[d ? 'width' : 'height'] = cut + 'px';
+					div.style[d ? 'left' : 'top'] = o + 'px';
+					c.style[d ? 'left' : 'top'] = -o + 'px';
+					div.appendChild(c); h.appendChild(div);
+					o += cut; p = cuts[n];
+				});
+				i.parentElement.replaceChild(h, i);
+			}
+				split('h3', [368,h]);
+				split('h2', [73,w],1);
+				split('h1', [215,w],1);
+			
+			const nailSparkle = Sparkle.setup({
+				container: '#hands',
+				mask: 'nails_mask.png',
+				duration: 6,            // how long it runs on frame 1 before winding down
+				glintsAtOnce: 7,
+				colorChance: 0.25,
+				tint: 0.2,
+				sheenDuration: 2,
+				sheenGap: 2.5,
+				sheenDelay: 0.5,
+				spots: [
+				[220,255,'gold'], [244,256,'gold'], [291,243,'blue'], [108,163,'pink'], [17,170],
+				[192,274,'gold'], [155,237], [139,141,'pink'], [30,88], [48,140,'gold'],
+				[197,244,'gold'], [20,45], [233,281,'gold'], [142,203], [45,189,'pink'],
+				[143,172], [27,15], [279,220], [230,231], [165,32,'gold'],
+				[194,203,'gold'], [72,150,'pink'], [18,113], [50,162,'pink'], [18,136],
+				[288,269,'blue'], [206,222,'gold'], [51,16]
+				]
+			});
+
+			const pizzaShine = Sparkle.setup({
+				container: '#pizza',
+				mask: 'gloss_mask.png',
+				duration: 5,           // runs until the banner ends (or set seconds)
+				glintMode: 'sheen',       // glints pop as the light passes
+				sheenGlintChance: 0.7,
+				glintsAtOnce: 5,
+				glintSize: 12,
+				heroChance: 0.1,
+				colors: ['#ffffff', '#fff6e0'],
+				sheenColors: ['#fff1d6', '#ffffff', '#fff6e4'],
+				sheenBlend: 'screen',
+				sheenOpacity: 0.9,
+				sheenWidth: 0.3,
+				sheenAngle: 25,           // same angle as frame 1 so the light feels continuous
+				sheenDuration: 1.6,
+				sheenGap: 1,
+				sheenDelay: 0.2,          // first sweep lands right as the pizza arrives
+				spots: [
+				[127,50], [172,192], [217,51], [197,153], [284,65],
+				[79,159], [109,19], [112,208], [69,112], [256,184],
+				[126,102], [297,128], [243,91]
+				]
+			});
+
+			// Automatically set transform/willChange for optimized rendering
+			gsap.set([
+				"#hand-shadow",
+				"#icon",
+				"#logo",
+				"#price"
+			], { willChange: "auto", clearProps: "transform", backfaceVisibility: "visible" });
+
+			gsap.set('#hands',{scale:1.5, rotation:-90, x:-w, transformOrigin: "50% 100%"})
+			gsap.set('#pizza',{scale:1, rotation:-90, x:-400, transformOrigin:'60% 25%'})
+
+			gsap.set('#h1_0',{autoAlpha:0, scale:3, transformOrigin:'50% 65%'})
+			gsap.set('#h1_1',{autoAlpha:0, scale:3, transformOrigin:'50% 65%'})
+			gsap.set('#h2_0',{autoAlpha:0, scale:3, transformOrigin:'100% 75%'})
+			gsap.set('#h2_1',{autoAlpha:0, scale:3, transformOrigin:'20% 75%'})
+
+
+			gsap.set('#h3_0',{autoAlpha:0, scale:3, transformOrigin:'20% 90%'})
+			gsap.set('#h3_1',{autoAlpha:0, scale:3, transformOrigin:'20% 10%'})
+			gsap.set('#price',{autoAlpha:0, scale:3, transformOrigin:'75% 60%'})
+			gsap.set('#cta',{x:-100, autoAlpha:0})
+
+
+			const textin = { autoAlpha:1, scale:1, duration: 0.2, ease:'back.out(1.5)'}
+			const imagein = {autoAlpha:1, rotation:0, scale:1, x:0, y:0, ease:'expo.out', duration: 0.8}
+
+			gsap.set('#cover',{autoAlpha:0})
+
+				tmln.to('#hands',imagein, d += 0.1 )
+					.add(nailSparkle.start(), d - 0.4)
+					.to('#h1_0', textin, d += 0.1)
+					.to('#h1_1', textin, d += 0.2)
+					.to('#h2_0', textin, d += 0.4)
+					.to('#h2_1', textin, d += 0.2)
+					
+					.to("#hands",{x:w, rotation:0, ease:'power2.in', duration: 0.3}, d += rt)
+					.to('#pizza',imagein, d += 0.15 )
+					.add(pizzaShine.start(), d - 0.5)
+					.set('#h1_0, #h1_1, #h2_0, #h2_1', {autoAlpha:0}, d += 1)
+					.to('#h3_0', textin, d += 0.0)
+					.to('#h3_1', textin, d += 0.2)
+
+					.to('#price', textin, d += 0.6)
+					.to('#cta', imagein, d += 0.8)
+
+
+			}
+		</script>
+
+</head>
+
+<body>
+
+	<div id="container_dc">
+		<div id="content_dc">
+
+		<div style="display: none;">
+			<img src="gloss_mask.png" />
+			<img src="nails_mask.png" />
+		</div>
+	
+		<div class='holder' id='icon'><img src='icon.png' width='300' height='600'/></div>
+		<div class='holder' id='hand-shadow'>
+		<div class='holder' id='hands' style="overflow: visible;">
+			<img src='hand-shadow.png' width='385' height='600'/>
+			<img src='hands.png' width='350' height='600'/>
+		</div>
+		<div class='holder' id='pizza' style="overflow: visible;"><img src='pizza.png' width='385' height='600'/></div>
+		<div class='holder' id='cta'><img src='cta.png' width='300' height='600'/></div>
+		<div class='holder' id='price'><img src='price.png' width='300' height='600'/></div>
+		<img id='h3' src='h3.png' width='300' height='600'/>
+		<img id='h2' src='h2.png' width='300' height='600'/>
+		<img id='h1' src='h1.png' width='300' height='600'/>
+		<div class='holder' id='logo'><img src='logo.png' width='300' height='600'/></div>
+			
+		</div>
+		<div id="cover"></div>
+		<div class="border"></div>
+		<div id="background_exit_dc" role="button" aria-label=""></div>
+	</div>
+
+	<script>
+		function bgExitHandler(e) {
+			window.open(window.clickTag,'_blank');
+		}	
+	</script>
+
+</body>
+</html>
