@@ -126,7 +126,7 @@
 			gsap.set('#h3_0',{autoAlpha:0, scale:3, transformOrigin:'20% 90%'})
 			gsap.set('#h3_1',{autoAlpha:0, scale:3, transformOrigin:'20% 10%'})
 			gsap.set('#price',{autoAlpha:0, scale:3, transformOrigin:'75% 60%'})
-			gsap.set('#cta',{x:-100, autoAlpha:0})
+			gsap.set('#cta, #subhead',{x:-100, autoAlpha:0})
 
 
 			const textin = { autoAlpha:1, scale:1, duration: 0.2, ease:'back.out(1.5)'}
@@ -148,7 +148,8 @@
 					.to('#h3_0', textin, d += 0.0)
 					.to('#h3_1', textin, d += 0.2)
 
-					.to('#price', textin, d += 0.6)
+					.to('#price', textin, d += 0.3)
+					.to('#subhead', imagein, d += 0.4)
 					.to('#cta', imagein, d += 0.8)
 
 
@@ -179,6 +180,7 @@
 		<img id='h3' src='h3.png' width='300' height='600'/>
 		<img id='h2' src='h2.png' width='300' height='600'/>
 		<img id='h1' src='h1.png' width='300' height='600'/>
+		<img id='subhead' src='subhead.png' width='300' height='600'/>
 		<div class='holder' id='logo'><img src='logo.png' width='300' height='600'/></div>
 			
 		</div>
