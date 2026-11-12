@@ -57,7 +57,7 @@
 				i.parentElement.replaceChild(h, i);
 			}
 				split('h1', [568/2,w],1);
-				split('h2', [45,h]);
+				split('h2', [35,h]);
 
 			const burn = BurnTransition.setup({
 				from: '#frame1',
@@ -98,7 +98,7 @@
 
 			// gsap.set('#h2_0, #h2_1',{autoAlpha:0, scale:1.50, y:0, transformOrigin:'25% 50%'})
 			gsap.set('#noregerts',{scale:.6})
-			gsap.set('#h2_0, #h2_1',{x:50, autoAlpha:0})
+			gsap.set('#h2_0, #h2_1, #subhead',{x:50, autoAlpha:0})
 			gsap.set('#price',{autoAlpha:0, scale:2, y:0, transformOrigin:'50% 50%'})
 			gsap.set('#h1_0, #h1_1, #pizza',{x:50, autoAlpha:0})
 			gsap.set('#cta',{x:30, autoAlpha:0})
@@ -120,8 +120,9 @@
 					// .to('#h2_0',{autoAlpha:1, scale:1, ease:'back.out(1.5)', duration: 0.15}, d += 0.5)
 					// .to('#h2_1',{autoAlpha:1, scale:1, ease:'back.out(1.5)', duration: 0.15}, d += 0.2)
 					.to('#price',{autoAlpha:1, scale:1, ease:'back.out(1.5)', duration: 0.15}, d += 0.5)
+					.to('#subhead',{x:0, autoAlpha:1, ease:'back.out', duration: 0.3}, d + 0.5)
 					.add(shake('#pizza, #h2_0, #h2_1'),d += 0.10)
-					.to('#cta',{x:0, autoAlpha:1, ease:'back.out', duration: 0.3}, d += 0.5)
+					.to('#cta',{x:0, autoAlpha:1, ease:'back.out', duration: 0.3}, d += 0.7)
 					// .to('#cta',{autoAlpha:1, scale:1, y:0, ease:'back.out(1)', duration: 0.2}, d += 0.8)
 					.to('#cta',{autoAlpha:1, scale:1.25, y:0, ease:'back.in(1)', duration: 0.3, yoyo:true, repeat:1, transformOrigin:'70% 50%'}, d += 1.5)
 					// .to('#h1_1',{autoAlpha:1, scale:1.25, y:0, ease:'back.in(1)', duration: 0.2, yoyo:true, repeat:1, transformOrigin:'25% 50%'}, d += 0.2)
@@ -141,6 +142,7 @@
 			<div class='holder' id='price'><img src='price.png' width='728' height='90'/></div>
 			<div class='holder' id='pizza' style="left:-30px"><img src='pizza.png' width='728' height='150' style="top:-30px;"/></div>
 			<img id='h2' src='h2.png' width='728' height='90'/>
+			<div class='holder' id='subhead'><img src='subhead.png' width='728' height='90'/></div>
 			<div class='holder' id='cta'><img src='cta.png' width='728' height='90'/></div>
 		</div>
 		
